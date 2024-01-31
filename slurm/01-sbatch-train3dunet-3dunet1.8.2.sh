@@ -39,7 +39,7 @@ train3dunet_output=$output_dir/train3dunet-$session.output
 touch $train3dunet_output
 config=/home/dwalth/data/cloud/configs/named_copies/train_config-$session.yml
 cp $config $output_dir/
-cp ~/$(dirname $0)/$0 $output_dir/  # works
+cp $(dirname $0)/$0 $output_dir/  # works
 
 # train3dunet command
 train3dunet --config $config 2>&1 | tee -a $train3dunet_output
