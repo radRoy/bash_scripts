@@ -2,8 +2,9 @@
 
 # navigating directories and pulling newest committed files
 dir_cloud=/home/dwalth/data/cloud
+cd ~
 dir_parent=~/$(dirname $0)  # no trailing slash
-cd $wd_cloud
+cd $dir_cloud
 bash pull-script.sh  # in case that got forgotten
 
 # creating the session string (makes it possible to give a custom session name as input, defaults to current date and a number yymmdd-id)
