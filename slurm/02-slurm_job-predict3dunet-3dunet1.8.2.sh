@@ -41,7 +41,7 @@ nvidia-smi -i $CUDA_VISIBLE_DEVICES -l 2 --query-gpu=gpu_name,memory.used,memory
 # predict3dunet preparation
 predict3dunet_output=$output_dir/predict3dunet-$session.output
 touch $predict3dunet_output
-config=~/data/cloud/pytorch-3dunet/resources/DW-3DUnet_lightsheet_boundary/named_copies/test_config-$session.yml
+config=/home/dwalth/data/cloud/configs/named_copies/test_config-$session.yml
 cp $config $output_dir/
 cp ~/$(dirname $0)/$0 $output_dir/  # works
 

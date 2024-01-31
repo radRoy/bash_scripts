@@ -28,5 +28,5 @@ if [ -f $slurmout ]; then
     echo Error. Slurm output file should not already exist. Exiting program to prevent overwriting previous slurm output file contents.
     exit
 fi
-sbatch_job=/home/dwalth/data/cloud/slurmJobs/named_copies/slurm_job-$session.sh  # static link
+sbatch_job=/home/dwalth/data/cloud/slurmJobs/named_copies/sbatch-$session.sh  # static link
 sbatch --output=$slurmout $sbatch_job $input_session $session $checkdir $slurmout
