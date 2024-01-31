@@ -26,13 +26,5 @@ if [ -f $slurmout ]; then
     echo Error. Slurm output file should not already exist. Exiting program to prevent overwriting previous slurm output file contents.
     exit
 fi
-sbatch --output=$slurmout /home/dwalth/data/cloud/slurmJobs/named_copies/slurm_job-$session*.sh $input_session $session $checkdir $slurmout
-
-# copying outputs (should get executed after the slurm job has finished, for whatever reason)
-### This does not work, currently. Need to find a way to wait for above 'sbatch' process to finish before executing these lines.
-## backup_checkdir="/home/dwalth/data/backup_outputs/chpt-${session}"  # without trailing slash
-## if ! [ -d "$backup_checkdir" ]; then
-##     mkdir $backup_checkdir
-## fi
-## mv $slurmout $checkdir/
-## cp $checkdir/* $backup_checkdir/
+sbatch_job=/home/dwalth/data/cloud/slurmJobs/named_copies/slurm_job-$session.sh
+sbatch --output=$slurmout $sbatch_job $input_session $session $checkdir $slurmout

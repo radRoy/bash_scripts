@@ -38,13 +38,12 @@ nvidia_log=$output_dir/nvidia-smi-$session.log
 touch $nvidia_log
 nvidia-smi -i $CUDA_VISIBLE_DEVICES -l 2 --query-gpu=gpu_name,memory.used,memory.free --format=csv -f $nvidia_log &
 
-# train3dunet commands
-# touch $checkdir/train3dunet.output
-# train3dunet --config ~/data/cloud/pytorch-3dunet/resources/DW-3DUnet_lightsheet_boundary/named_copies/train_config-$session.yml 2>&1 | tee -a $checkdir/train3dunet.output
-
-# predict3dunet commands
+# predict3dunet preparation
 predict3dunet_output=$output_dir/predict3dunet-$session.output
 touch $predict3dunet_output
 config=~/data/cloud/pytorch-3dunet/resources/DW-3DUnet_lightsheet_boundary/named_copies/test_config-$session.yml
 cp $config $output_dir/
+cp ~/$(dirname $0)/$0 $output_dir/  # works
+
+# predict3dunet command
 predict3dunet --config $config 2>&1 | tee -a $predict3dunet_output

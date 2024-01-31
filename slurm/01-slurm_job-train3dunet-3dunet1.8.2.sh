@@ -21,7 +21,8 @@ fi
 session=$1  # "yymmdd-id"
 echo " ${0}: session: ${session}"
 checkdir=$2  # starting with "/home/dwalth/..." without trailing slash
-echo " ${0}: checkdir: ${checkdir}"
+output_dir=$checkdir
+echo " ${0}: checkdir (= output_dir): ${checkdir}"
 echo " ${0}: slurm output file name: ${3}"
 
 # 3dunet commands
@@ -29,17 +30,16 @@ echo " ${0}: slurm output file name: ${3}"
 module load mamba/23.3.1-1  # above line causes an error `Lmod has detected the following error: The following module(s) are unknown: "mamba"`, this results in the end in a gcc related error.
 source activate 3dunet1.8.2
 
-nvidia_log=$checkdir/nvidia-smi-$session.log
+nvidia_log=$output_dir/nvidia-smi-$session.log
 touch $nvidia_log
 nvidia-smi -i $CUDA_VISIBLE_DEVICES -l 2 --query-gpu=gpu_name,memory.used,memory.free --format=csv -f $nvidia_log &
 
-# train3dunet commands
-train3dunet_output=$checkdir/train3dunet-$session.output
+# train3dunet preparation
+train3dunet_output=$output_dir/train3dunet-$session.output
 touch $train3dunet_output
 config=~/data/cloud/pytorch-3dunet/resources/DW-3DUnet_lightsheet_boundary/named_copies/train_config-$session.yml
-cp $config $checkdir/
-train3dunet --config $config 2>&1 | tee -a $train3dunet_output
+cp $config $output_dir/
+cp ~/$(dirname $0)/$0 $output_dir/  # works
 
-# predict3dunet commands
-# touch $checkdir/predict3dunet.output
-# predict3dunet --config ~/data/cloud/pytorch-3dunet/resources/DW-3DUnet_lightsheet_boundary/named_copies/test_config-$session.yml 2>&1 | tee -a $checkdir/predict3dunet.output
+# train3dunet command
+train3dunet --config $config 2>&1 | tee -a $train3dunet_output
