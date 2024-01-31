@@ -2,8 +2,7 @@
 
 # navigating directories and pulling newest committed files
 dir_cloud=/home/dwalth/data/cloud
-cd ~
-dir_parent=~/$(dirname $0)  # no trailing slash
+dir_parent=$(dirname $0)  # no trailing slash
 cd $dir_cloud
 bash pull-script.sh  # in case that got forgotten
 
