@@ -5,7 +5,7 @@ function f_get_next_session () {
   date=$(date '+%y%m%d')
   chpt_date="chpt-${date}"
 
-  folder="../outputs/"
+  folder="/home/dwalth/data/outputs/"
   i=0
   dateString="${chpt_date}-$i"
 
