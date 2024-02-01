@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --gres=gpu:A100:1
-#SBATCH --time=24:00:00
+#SBATCH --time=10:00:00
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=daniel.walther@uzh.ch
 
@@ -30,13 +30,18 @@ echo " ${0}: slurm output file name: ${3}"
 module load mamba/23.3.1-1  # above line causes an error `Lmod has detected the following error: The following module(s) are unknown: "mamba"`, this results in the end in a gcc related error.
 source activate 3dunet1.8.2
 
+echo "command: nvidia_log=$output_dir/nvidia-smi-$session.log"
 nvidia_log=$output_dir/nvidia-smi-$session.log
 touch $nvidia_log
+
+echo "command: nvidia-smi -i \$CUDA_VISIBLE_DEVICES -l 2 --query-gpu=gpu_name,memory.used,memory.free --format=csv -f \$nvidia_log &"
 nvidia-smi -i $CUDA_VISIBLE_DEVICES -l 2 --query-gpu=gpu_name,memory.used,memory.free --format=csv -f $nvidia_log &
 
 # train3dunet preparation
+echo: "command: train3dunet_output=$output_dir/train3dunet-$session.output"
 train3dunet_output=$output_dir/train3dunet-$session.output
 touch $train3dunet_output
+
 config=/home/dwalth/data/cloud/configs/named_copies/train_config-$session.yml
 cp $config $output_dir/
 cp $(dirname $0)/$0 $output_dir/  # works
