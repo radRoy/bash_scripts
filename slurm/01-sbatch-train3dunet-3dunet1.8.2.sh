@@ -3,9 +3,11 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --gres=gpu:A100:1
-#SBATCH --time=6:00:00
+#SBATCH --time=10:5
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=daniel.walther@uzh.ch
+
+# time format: dd-hh:mm:ss, leading 0s can be omitted, e.g., --time=10:5 means 10min 5sec
 
 # info: do not use `srun` in sbatch scripts, except job step creation is enabled (I think this would be done by setting --ntasks to more than 1)
 
@@ -13,7 +15,7 @@ cd ~/data/cloud  # this line appears to be required for below nvidia-smi logging
 # bash pull-script.sh
 
 if [ $# -gt 3 ]; then
-    echo Error. Input no input session expected. Input session with my train3dunet starter script is not supported.
+    echo Error. No input session expected. Input session with my train3dunet starter script is not supported.
     exit
 fi
 
