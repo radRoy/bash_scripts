@@ -35,7 +35,8 @@ if ! [ -d $checkdir ]; then
 fi
 # create the empty would-be-current_session dir for f_get_next_session() to work.
 current_session_dir="/home/dwalth/data/outputs/chpt-${session}"
-if ! [ -d  ]
+if ! [ -d $current_session_dir ]; then
+    mkdir $current_session_dir
 fi
 
 # calling the slurm job file (containing the train3dunet command, for example)
