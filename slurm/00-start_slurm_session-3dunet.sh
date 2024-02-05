@@ -16,14 +16,24 @@ fi
 source $dir_parent/../main/get_next_session.sh  # static symlink
 session=$(f_get_next_session)
 
-# creating the session's checkpoint directory if necessary
-checkdir="/home/dwalth/data/outputs/chpt-${session}"  # static link
-if ! [ -d "$checkdir" ]; then
+# defining the checkpoint directory conditionally (in case of input, sub bash scripts will create a <current_session> subfolder in the <input_session> folder)
+if ! [ $# -eq 0 ]; then
+    checkdir="/home/dwalth/data/outputs/chpt-${input_session}"  # static link
+    slurmout=$checkdir/$session/slurm-$session.out  # static link
+    if ! [ -d $checkdir ]; then
+        checkdir="/home/dwalth/data/outputs/chpt-${session}"  # static link
+        slurmout=$checkdir/slurm-$session.out  # static link
+else
+    checkdir="/home/dwalth/data/outputs/chpt-${session}"  # static link
+    slurmout=$checkdir/slurm-$session.out  # static link
+fi
+
+# create checkdir if it does not exist
+if ! [ -d $checkdir ]; then
     mkdir $checkdir
 fi
 
 # calling the slurm job file (containing the train3dunet command, for example)
-slurmout=$checkdir/slurm-$session.out  # static link
 if [ -f $slurmout ]; then
     echo Error. Slurm output file should not already exist. Exiting program to prevent overwriting previous slurm output file contents.
     exit

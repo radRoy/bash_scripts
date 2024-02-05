@@ -23,7 +23,11 @@ fi
 session=$1  # "yymmdd-id"
 echo " ${0}: session: ${session}"
 checkdir=$2  # starting with "/home/dwalth/..." without trailing slash
-output_dir=$checkdir
+if [ $session in $checkdir ]; then
+    output_dir=$checkdir
+else
+    output_dir=$checkdir/$session
+fi
 echo " ${0}: checkdir (= output_dir): ${checkdir}"
 echo " ${0}: slurm output file name: ${3}"
 
