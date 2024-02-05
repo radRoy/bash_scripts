@@ -23,6 +23,7 @@ if ! [ $# -eq 0 ]; then
     if ! [ -d $checkdir ]; then
         checkdir="/home/dwalth/data/outputs/chpt-${session}"  # static link
         slurmout=$checkdir/slurm-$session.out  # static link
+    fi
 else
     checkdir="/home/dwalth/data/outputs/chpt-${session}"  # static link
     slurmout=$checkdir/slurm-$session.out  # static link
