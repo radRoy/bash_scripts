@@ -2,9 +2,9 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
-#SBATCH --gres=gpu:T4:1
+#SBATCH --gres=gpu:A100:1
 #SBATCH --time=00:15:00
-#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-type=ALL
 #SBATCH --mail-user=daniel.walther@uzh.ch
 
 # info: do not use `srun` in sbatch scripts, except job step creation is enabled (I think this would be done by setting --ntasks to more than 1)

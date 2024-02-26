@@ -3,8 +3,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --gres=gpu:A100:1
-#SBATCH --time=48:00:00
-#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --time=26:00:00
+#SBATCH --mail-type=ALL
 #SBATCH --mail-user=daniel.walther@uzh.ch
 
 # time format: dd-hh:mm:ss, leading 0s can be omitted, e.g., --time=10:5 means 10min 5sec
