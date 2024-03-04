@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --gres=gpu:A100:1
-#SBATCH --time=26:00:00
+#SBATCH --time=9:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=daniel.walther@uzh.ch
 
