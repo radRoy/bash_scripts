@@ -36,6 +36,11 @@ echo " ${0}: slurm output file name: ${3}"
 module load mamba/23.3.1-1  # above line causes an error `Lmod has detected the following error: The following module(s) are unknown: "mamba"`, this results in the end in a gcc related error.
 source activate 3dunet1.8.2
 
+# create output_dir if it does not exist (this fixes nvidia-smi logs not being written since the most recent update of this script)
+if ! [ -d $output_dir ]; then
+  mkdir $output_dir
+fi
+
 echo "command: nvidia_log=$output_dir/nvidia-smi-$session.log"
 nvidia_log=$output_dir/nvidia-smi-$session.log
 touch $nvidia_log
