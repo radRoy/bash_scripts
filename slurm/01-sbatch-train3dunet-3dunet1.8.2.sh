@@ -23,12 +23,13 @@ fi
 session=$1  # "yymmdd-id"
 echo " ${0}: session: ${session}"
 checkdir=$2  # starting with "/home/dwalth/..." without trailing slash
-if [ $session in $checkdir ]; then
+echo " ${0}: checkdir: ${checkdir}"
+if [[ $checkdir == *$session* ]]; then
     output_dir=$checkdir
 else
     output_dir=$checkdir/$session
 fi
-echo " ${0}: checkdir (= output_dir): ${checkdir}"
+echo " ${0}: output_dir: ${output_dir}"
 echo " ${0}: slurm output file name: ${3}"
 
 # 3dunet commands
