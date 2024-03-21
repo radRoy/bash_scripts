@@ -4,7 +4,7 @@
 dir_cloud=/home/dwalth/data/cloud
 dir_parent=$(dirname $0)  # no trailing slash
 cd $dir_cloud
-bash pull-script.sh  # in case that got forgotten
+# bash pull-script.sh  # in case that got forgotten
 
 # creating the session string (makes it possible to give a custom session name as input, defaults to current date and a number yymmdd-id)
 # session example: '230930-0'
